@@ -1,0 +1,8 @@
+<div>
+    <a href="{{ blog_detail.get_absolute_url }}"><img src="{{ blog_detail.picture.url }}"></a>
+</div>
+<div>
+    <h4><a href="{{ blog_detail.get_absolute_url }}">{{ blog_detail.title }}</a></h4>
+    <p>{{ blog_detail.body }}</p>
+    <p>{{ blog_detail.date }}</p>
+</div>

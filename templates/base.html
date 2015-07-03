@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}{% endblock %}</title>
+        {% include 'head.html' %}
+        {% block expand_head %}{% endblock %}
+    </head>
+    <body>
+        <div class="container">
+            <!-- Заголовок -->
+            <div class="header first_level">
+                {% include 'header.html' %}
+            </div>
+            <!-- Контент -->
+            <div class="included_content">
+                {% block content %}{% endblock %}
+            </div>
+            <!-- Подвал -->
+            <div class="inner_footer">
+                <div class="footer">
+                    {% include 'footer.html' %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

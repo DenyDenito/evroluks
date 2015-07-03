@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Услуги{% endblock %}
+
+{% block content %}
+    <div>Услуги</div>
+    <div>
+    {% for service_detail in service_list %}
+        <div>
+            <div>
+                <a href="{{ service_detail.get_absolute_url }}"><img src="{{ service_detail.image.url }}"></a>
+            </div>
+            <div>
+                <h4><a href="{{ service_detail.get_absolute_url }}">{{ service_detail.title }}</a></h4>
+                <p>{{ service_detail.short_description|truncatewords:50 }}</p>
+                <p><a href="{{ service_detail.get_absolute_url }}">Подробнее</a></p>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

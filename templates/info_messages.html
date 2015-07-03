@@ -1,0 +1,17 @@
+<div>
+    <h3>{% if info_message %}{{ info_message }}{% endif %}</h3>
+</div>
+<div>
+    <h3>{% if form.errors %}{{ form.errors }}hhh{% endif %}</h3>
+</div>
+<div>
+    {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                {{ message }}
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+</div>

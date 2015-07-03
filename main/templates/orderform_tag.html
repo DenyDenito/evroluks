@@ -1,0 +1,71 @@
+{% load main_tags %}
+{#<div>#}
+{#    <h3>{% if info_message %}{{ info_message }}{% endif %}</h3>#}
+{#    {{ info_message }}#}
+{#</div>#}
+<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+<script>
+/
+    $("#form1 button").click(function() {
+//      alert('Ошибка получения запроса');
+        $.ajax({
+            url: "/call/",
+            type: 'POST',
+            dataType:"html",
+            data: {
+                "name": name.val(),
+            },
+            error: function() {
+                alert('Ошибка получения запроса');
+            },
+// При успехе очищаем поля и меняем кнопочку
+            success: function(data) {
+                name.val('');
+                email.val('');
+                $(".footer button").text("СПАСИБО")
+                        .addClass("save-call-button");
+            },
+// CSRF механизм защиты Django
+            beforeSend: function(xhr, settings) {
+                console.log('-------------before send--');
+                function getCookie(name) {
+                    var cookieValue = null;
+                    if (document.cookie && document.cookie != '') {
+                        var cookies = document.cookie.split(';');
+                        for (var i = 0; i < cookies.length; i++) {
+                            var cookie = jQuery.trim(cookies[i]);
+                            // Does this cookie string begin with the name we want?
+                        if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+                }
+                if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                    // Only send the token to relative URLs i.e. locally.
+                    xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                }
+            }
+        });// ajax
+    return false;
+});
+</script>
+<div>
+    <h3>{% if info_message %}{{ info_message }}{% endif %}</h3>
+</div>
+<div>
+    {% if form.errors %}
+        <p>На форме есть ошибки, исправьте их перед повторной отправкой</p>
+    {% endif %}
+    <form id="form1" action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <p>{{ field }}</p>
+            <p>{{ field.errors.as_text }}</p>
+        {% endfor %}
+{#        <button type="submit"><span></span><p>Отправить</p></button>#}
+        <button><span></span><p>Отправить</p></button>
+    </form>
+</div>

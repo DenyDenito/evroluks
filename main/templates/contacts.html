@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load main_tags %}
+
+{% block expand_head %}
+    <script src="http://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+    <script type="text/javascript">
+        ymaps.ready(init);
+        var myMap,
+            myPlacemark;
+
+        function init(){
+            myMap = new ymaps.Map("map", {
+                center: [57.13477329, 65.55835632],
+                zoom: 11,
+                controls: ['zoomControl']
+            });
+
+            var searchControl = new ymaps.control.SearchControl({
+                options: {
+                    provider: 'yandex#search',
+                    noPopup: true
+                }
+            });
+
+            myMap.controls.add(searchControl);
+
+            searchControl.search('Химчистка Евролюкс');
+        }
+    </script>
+{% endblock %}
+
+{% block content %}
+    <div id="map" style="width: 900px; height: 400px"></div>
+    <a class="dg-widget-link" href="http://2gis.ru/tyumen/profiles/1830115629597329,1830116630062758,1830115629945052,1830115629676222,1830115630255620,1830115630082511,1830115629786620,1830115629676221,1830115629617490,70000001006749734,1830115629620299,1830115629617489,1830115629617491/center/65.5598831176758,57.13810229016563/zoom/12?utm_medium=widget-source&utm_campaign=firmsonmap&utm_source=bigMap">Посмотреть на карте Тюмени</a><script charset="utf-8" src="http://widgets.2gis.com/js/DGWidgetLoader.js"></script><script charset="utf-8">new DGWidgetLoader({"width":900,"height":400,"borderColor":"#a3a3a3","pos":{"lat":57.13810229016563,"lon":65.5598831176758,"zoom":11},"opt":{"city":"tyumen"},"org":[{"id":"1830115629597329"},{"id":"1830116630062758"},{"id":"1830115629945052"},{"id":"1830115629676222"},{"id":"1830115630255620"},{"id":"1830115630082511"},{"id":"1830115629786620"},{"id":"1830115629676221"},{"id":"1830115629617490"},{"id":"70000001006749734"},{"id":"1830115629620299"},{"id":"1830115629617489"},{"id":"1830115629617491"}]});</script><noscript style="color:#c00;font-size:16px;font-weight:bold;">Виджет карты использует JavaScript. Включите его в настройках вашего браузера.</noscript>
+    {% show_orderform %}
+{% endblock %}

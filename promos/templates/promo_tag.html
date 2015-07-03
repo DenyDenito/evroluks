@@ -1,0 +1,19 @@
+<div class="promo row">
+    <div class="col-xs-12 col-sm-3 col-centered">
+        <img class="img-circle" src="{{ promo.image.url }}">
+    </div>
+    <div class="col-xs-12 col-sm-8">
+        <div>
+            <h2>{{ promo.title }}</h2>
+            <p>{{ promo.short_description|truncatewords:50 }}</p>
+            <p>{{ promo.date }}</p>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-1 link_cont">
+        <a href="{{ promo.get_absolute_url }}">
+            <div class="link">
+                <div class="arrow"><i class='fa fa-angle-right fa-2x'></i></div>
+            </div>
+        </a>
+    </div>
+</div>

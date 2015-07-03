@@ -1,0 +1,42 @@
+{% load staticfiles %}
+<!-- Логотип -->
+<div class="logo col-md-2 col-sm-12 col-xs-12 curved-vt-2">
+    <a href="#">
+        <img class="center-block" src="{% static 'css/img/g12.png' %}" style="max-width: 100%; max-height: 150px">
+    </a>
+</div>
+<!-- Навигация -->
+<div class="navigation col-md-10 col-sm-12 col-xs-12 non-semantic-protector">
+    <h1 class="ribbon">
+       <strong class="ribbon-content">
+           <div id="custom-bootstrap-menu" class="navbar navbar-default " role="navigation">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-menubuilder">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar">
+                            </span><span class="icon-bar">
+                            </span><span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse navbar-menubuilder">
+                        <ul class="nav navbar-nav navbar-left">
+                            <li><a href="{% url 'main' %}">ГЛАВНАЯ</a>
+                            </li>
+                            <li><a href="{% url 'services' %}">УСЛУГИ</a>
+                            </li>
+                            <li><a href="{% url 'promos' %}">АКЦИИ</a>
+                            </li>
+                            <li><a href="{% url 'gallery' %}">ФОТОГАЛЕРЕЯ</a>
+                            </li>
+                            <li><a href="{% url 'about' %}">О НАС</a>
+                            </li>
+                            <li><a href="{% url 'contacts' %}">КОНТАКТЫ</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </strong>
+    </h1>
+</div>

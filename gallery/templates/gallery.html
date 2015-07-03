@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Фотогалерея{% endblock %}
+
+{% block content %}
+    <div id="content">
+        <div>
+            <div>
+                <h2>Фотогалерея</h2>
+            </div>
+            <div>
+                <p style="padding-top: 50px;">
+                    <form action="{% url 'gallery' %}" method="get">
+                    {% csrf_token %}
+                        <select name="album_id" style="Width: 100%;" onChange="this.form.submit();">
+                            {% for  album in albums %}
+                                <option {% if album.id == selected_album.id %}selected{% endif %} value="{{ album.id }}">{{ album.title }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
+                </p>
+            </div>
+            <ul>
+            {% for image in selected_album.image_set.all %}
+                <li>
+                    <figure>
+                        <a href="{{ image.picture.url }}" rel="iLoad|{{ image.album.title }}" title="{{ image.title }}|{{ image.caption }}">
+                            <img src="{{ image.picture.url }}" alt="">
+                        </a>
+                    </figure>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

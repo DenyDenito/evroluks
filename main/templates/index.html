@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load promo_tags %}
+
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+    <div class="slider_full">
+        <div class="slider">
+            <div id="customNav" class="owl-nav"></div>
+            <div class="big-images">
+                {% for slide in slides %}
+                    <div class="owl-item">
+                        <div class="caption_cover"></div>
+                        <div class="caption">
+                            <div class="caption_header">{{ slide.header }}</div>
+                            {% if slide.caption %}
+                                <div class="caption_content">{{ slide.caption }}</div>
+                            {% endif %}
+                        </div>
+                        <img src="{{ slide.image.url }}">
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="thumbs">
+        {% for slide in slides %}
+            <div class="owl-item"><img src="{{ slide.image.url }}"></div>
+        {% endfor %}
+    </div>
+    <div class="services">
+        <div class="row">
+            {% for service_detail in service_list %}
+                <div class="col-xs-6 col-md-3 service_obj">
+                    <a href="{{ service_detail.get_absolute_url }}">
+                        <div style="background: {% cycle '#6e92d4' '#75ab75' '#d5835a' '#cb7d75' '#b5a27e' '#5973a2' '#59a28e' '#c6c171' %}">
+                            <img src="{{ service_detail.image.url }}">
+                            <h3>{{ service_detail.title }}</h3>
+                            <p>{{ service_detail.short_description|truncatewords:50 }}</p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div id="promos_inner" class="effect">
+        {% for promo_detail in promo_list|slice:":2" %}
+            {% show_promo promo_detail %}
+        {% endfor %}
+    </div>
+    <div id="about_inner" class="effect">
+        <h1>Немного о нас</h1>
+        <div class="row">
+            <div class="col-xs-12 col-sm-9">
+                <p>
+                    Есть много вариантов Lorem Ipsum, но большинство из них имеет не всегда
+                    приемлемые модификации, например, юмористические вставки или слова,
+                    которые даже отдалённо не напоминают латынь. Если вам нужен Lorem Ipsum
+                    для серьёзного проекта, вы наверняка не хотите какой-нибудь шутки,
+                    скрытой в середине абзаца. Также все другие известные генераторы Lorem
+                    Ipsum используют один и тот же текст, который они просто повторяют,
+                    пока не достигнут нужный объём. Это делает предлагаемый здесь генератор
+                    единственным настоящим Lorem Ipsum генератором. Он использует словарь
+                    из более чем 200 латинских слов, а также набор моделей предложений. В
+                    результате сгенерированный Lorem Ipsum выглядит правдоподобно, не имеет
+                    повторяющихся абзацей или "невозможных" слов.</p>
+            </div>
+            <div class="col-xs-12 col-sm-3">
+                <img src="{% static 'css/img/prachechnaya-300x300.jpg' %}">
+            </div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="circle_logo col-md-2 col-md-offset-5">
+            <img src="{% static 'css/img/g12.png' %}">
+        </div>
+    </div>
+    <script>
+        jQuery(document).ready(function ($) {
+
+            var $sync1 = $(".big-images"),
+                $sync2 = $(".thumbs"),
+                flag = false,
+                duration = 300;
+
+            $sync1
+                .owlCarousel({
+                    items: 1,
+                    margin: 10,
+                    nav: true,
+                    dots: true,
+                    navText:[
+                        "<i class='fa fa-angle-left fa-2x'></i>",
+                        "<i class='fa fa-angle-right fa-2x'></i>"
+                    ],
+                    navContainer: "#customNav",
+                })
+                .on('changed.owl.carousel', function (e) {
+                    if (!flag) {
+                        flag = true;
+                        $sync2.trigger('to.owl.carousel', [e.item.index, duration, true]);
+                        flag = false;
+                    }
+                });
+
+            $sync2
+                .owlCarousel({
+                    margin: 20,
+                    items: 6,
+                    center: true,
+                    dots: true,
+                })
+                .on('click', '.owl-item', function () {
+                    $sync1.trigger('to.owl.carousel', [$(this).index(), duration, true]);
+                })
+                .on('changed.owl.carousel', function (e) {
+                    if (!flag) {
+                        flag = true;
+                        $sync1.trigger('to.owl.carousel', [e.item.index, duration, true]);
+                        flag = false;
+                    }
+                });
+        });
+    </script>
+{% endblock %}

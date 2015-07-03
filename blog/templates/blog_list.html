@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block title %}Блог{% endblock %}
+
+{% block content %}
+    <div>Блог</div>
+    <div>
+    {% for blog_detail in blog_list %}
+        <div>
+            <div>
+                <a href="{{ blog_detail.get_absolute_url }}"><img src="{{ blog_detail.picture.url }}"></a>
+            </div>
+            <div>
+                <h4><a href="{{ blog_detail.get_absolute_url }}">{{ blog_detail.title }}</a></h4>
+                <p>{{ blog_detail.body|truncatewords:50 }}</p>
+                <p><a href="{{ blog_detail.get_absolute_url }}">Подробнее</a> | {{ blog_detail.date }}</p>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

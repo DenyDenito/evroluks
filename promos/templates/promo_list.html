@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% load promo_tags %}
+
+{% block title %}Акции{% endblock %}
+
+{% block content %}
+    <div>Акции</div>
+    <div>
+    {% for promo_detail in promo_list %}
+        {% show_promo promo_detail %}
+    {% endfor %}
+    </div>
+{% endblock %}
